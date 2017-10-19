@@ -67,7 +67,7 @@ public class CollegeListAdapter extends ArrayAdapter<College> {
         RatingBar mCollegeRatingBar = (RatingBar) view.findViewById(R.id.collegeListRatingBar);
 
         mNameTextView.setText(selectedCollege.getName());
-        mCollegeRatingBar.setRating(selectedCollege.getRating());
+        mCollegeRatingBar.setRating((float) selectedCollege.getRating());
 
         // Use asset manager to retrieve the image
         AssetManager assetManager = mContext.getAssets();
