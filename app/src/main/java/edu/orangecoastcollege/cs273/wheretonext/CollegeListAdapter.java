@@ -2,11 +2,18 @@ package edu.orangecoastcollege.cs273.wheretonext;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +61,26 @@ public class CollegeListAdapter extends ArrayAdapter<College> {
         // TODO:  Write the code to correctly inflate the view (college_list_item) with
         // TODO:  all widgets filled with the appropriate College information.
 
+
+        ImageView mCollegeImageView = (ImageView) view.findViewById(R.id.collegeListImageView);
+        TextView mNameTextView = (TextView) view.findViewById(R.id.collegeListTextView);
+        RatingBar mCollegeRatingBar = (RatingBar) view.findViewById(R.id.collegeListRatingBar);
+
+        mNameTextView.setText(selectedCollege.getName());
+        mCollegeRatingBar.setRating(selectedCollege.getRating());
+
+        // Use asset manager to retrieve the image
+        AssetManager assetManager = mContext.getAssets();
+
+        try
+        {
+            InputStream stream = assetManager.open(selectedCollege.getImageName());
+            Drawable image = Drawable.createFromStream(stream, selectedCollege.getName());
+            mCollegeImageView.setImageDrawable(image);
+        }catch (IOException e)
+        {
+            e.printStackTrace();
+        }
 
 
 
