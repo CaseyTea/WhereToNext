@@ -1,9 +1,14 @@
 package edu.orangecoastcollege.cs273.wheretonext;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RatingBar;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -13,6 +18,11 @@ public class CollegeListActivity extends AppCompatActivity {
     private List<College> collegesList;
     private CollegeListAdapter collegesListAdapter;
     private ListView collegesListView;
+
+    private EditText mNameEditText;
+    private EditText mPopulationEditText;
+    private EditText mTuitionEditText;
+    private RatingBar mCollegeRatingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +49,45 @@ public class CollegeListActivity extends AppCompatActivity {
     public void viewCollegeDetails(View view) {
 
         // TODO: Implement the view college details using an Intent
+        // Creating new intent connecting this object to CollegeDetailsActivity
+        Intent collegeDetails = new Intent(this, CollegeDetailsActivity.class);
+        startActivity(collegeDetails);
+
     }
 
     public void addCollege(View view) {
 
         // TODO: Implement the code for when the user clicks on the addCollegeButton
+        // Create string variables to store information for: College name, population, tuition and rating
+        String name = mNameEditText.getText().toString(); // getText does not convert to a sting so need to convert the getText method call
+        String population = mPopulationEditText.getText().toString();
+        String tuition = mTuitionEditText.getText().toString();
+        double rating = mCollegeRatingBar.getRating(); // getRating returns a double no need to convert
+
+        // If any of the TextEdits have not been filled in with text
+        if(TextUtils.isEmpty(name) || TextUtils.isEmpty(population) || TextUtils.isEmpty(tuition))
+        {
+           // Prompt to user:
+            Toast.makeText(this, "All fields about college must be provided.", Toast.LENGTH_LONG).show();
+        }
+        else {
+            // Create new object to be added into the database
+            College newCollege = new College(name, Integer.parseInt(population), Double.parseDouble(tuition), rating);
+
+            db.addCollege(newCollege);
+            // Notify the adapter of the changes
+            collegesListAdapter.notifyDataSetChanged();
+            collegesList.add(newCollege);
+
+
+            // Set the college fields to be empty
+            mNameEditText.setText("");
+            mPopulationEditText.setText("");
+            mTuitionEditText.setText("");
+            mCollegeRatingBar.setRating(0F); // make sure to make 0 a floating point by adding 'F'
+        }
+
+
     }
 
 }

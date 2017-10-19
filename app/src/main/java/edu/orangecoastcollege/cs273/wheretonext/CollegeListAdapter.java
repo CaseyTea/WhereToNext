@@ -21,6 +21,7 @@ public class CollegeListAdapter extends ArrayAdapter<College> {
 
 
 
+
     /**
      * Creates a new <code>CollegeListAdapter</code> given a mContext, resource id and list of colleges.
      *
@@ -45,15 +46,14 @@ public class CollegeListAdapter extends ArrayAdapter<College> {
     @Override
     public View getView(int pos, View convertView, ViewGroup parent)
     {
-
-
+        College selectedCollege = mCollegesList.get(pos);
         LayoutInflater inflater =
                 (LayoutInflater) mContext.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(mResourceId, null);
 
-
         // TODO:  Write the code to correctly inflate the view (college_list_item) with
         // TODO:  all widgets filled with the appropriate College information.
+
 
 
 
