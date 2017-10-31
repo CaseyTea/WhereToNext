@@ -46,6 +46,12 @@ public class CollegeListActivity extends AppCompatActivity {
         // TODO:  Set the list view to use the list adapter
     }
 
+    /**
+    * Method to create an intent and start it taking the user 
+    * to the next page of details. 
+    * @param View is the view which is being used to start the intent 
+    *
+    */
     public void viewCollegeDetails(View view) {
 
         // TODO: Implement the view college details using an Intent
